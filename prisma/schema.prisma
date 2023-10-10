@@ -22,22 +22,22 @@ model users {
   lastLogin    DateTime?
   intro        String?   @db.TinyText
   profile      String?   @db.Text
-  posts        posts[]
+  // posts        posts[]
 }
 
 model tags {
-  id        BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
-  title     String     @db.VarChar(75)
-  metaTitle String?    @db.VarChar(100)
-  slug      String     @db.VarChar(100)
-  content   String?    @db.Text
-  post_tag  post_tag[]
+  id        BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
+  title     String  @db.VarChar(75)
+  metaTitle String? @db.VarChar(100)
+  slug      String  @db.VarChar(100)
+  content   String? @db.Text
+  // post_tag  post_tag[]
 }
 
 model posts {
   id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  autherId    BigInt    @db.UnsignedBigInt
-  parentId    BigInt    @db.UnsignedBigInt
+  autherId    BigInt?   @db.UnsignedBigInt
+  parentId    BigInt?   @db.UnsignedBigInt
   title       String    @db.VarChar(75)
   metaTitle   String?   @db.VarChar(100)
   slug        String    @db.VarChar(100)
@@ -48,13 +48,13 @@ model posts {
   publishedAt DateTime?
   content     String?   @db.Text
 
-  users         users           @relation(fields: [autherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  parent        posts?          @relation("parentpost", fields: [parentId], references: [id])
-  posts         posts[]         @relation("parentpost")
-  post_tag      post_tag[]
-  post_meta     post_meta[]
-  post_comments post_comments[]
-  post_category post_category[]
+  // users         users?           @relation(fields: [autherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // parent        posts?          @relation("parentpost", fields: [parentId], references: [id])
+  // posts         posts[]         @relation("parentpost")
+  // post_tag      post_tag[]
+  // post_meta     post_meta[]
+  // post_comments post_comments[]
+  // post_category post_category[]
 }
 
 model post_tag {
@@ -62,21 +62,21 @@ model post_tag {
   postId BigInt @db.UnsignedBigInt
   tagId  BigInt @db.UnsignedBigInt
 
-  posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  tags  tags  @relation(fields: [tagId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // tags  tags  @relation(fields: [tagId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 }
 
 model post_comments {
   id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
   postId      BigInt    @db.UnsignedBigInt
-  parentId    BigInt    @db.UnsignedBigInt
+  parentId    BigInt?   @db.UnsignedBigInt
   title       String    @db.VarChar(100)
   published   Int       @default(0) @db.TinyInt
   createAt    DateTime  @default(now()) @db.Timestamp(0)
   publishedAt DateTime?
   content     String?   @db.Text
 
-  posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 }
 
 model post_meta {
@@ -85,17 +85,17 @@ model post_meta {
   key     String  @db.VarChar(50)
   content String? @db.Text
 
-  posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // posts posts @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 }
 
 model categories {
-  id            BigInt          @id @default(autoincrement()) @db.UnsignedBigInt
-  parentId      BigInt          @db.UnsignedBigInt
-  title         String          @db.VarChar(75)
-  metaTitle     String?         @db.VarChar(100)
-  slug          String          @db.VarChar(100)
-  content       String?         @db.Text
-  post_category post_category[]
+  id        BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
+  parentId  BigInt? @db.UnsignedBigInt
+  title     String  @db.VarChar(75)
+  metaTitle String? @db.VarChar(100)
+  slug      String  @db.VarChar(100)
+  content   String? @db.Text
+  // post_category post_category[]
 }
 
 model post_category {
@@ -103,6 +103,6 @@ model post_category {
   postId     BigInt @db.UnsignedBigInt
   categoryId BigInt @db.UnsignedBigInt
 
-  posts      posts      @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  categories categories @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // posts      posts      @relation(fields: [postId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  // categories categories @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 }
