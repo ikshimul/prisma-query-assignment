@@ -7,7 +7,7 @@ export async function GET(req, res) {
   };
   try {
     const prisma = new PrismaClient();
-    let list = await prisma.post_comments.findMany();
+    let list = await prisma.post_category.findMany();
     return NextResponse.json({ status: "success", data: list });
   } catch (e) {
     return NextResponse.json({ status: "fail", data: e.toString() });
@@ -22,12 +22,10 @@ export async function POST(req, res) {
   try {
     //const reqBody = await req.json();
     const prisma = new PrismaClient();
-    let result = await prisma.post_comments.create({
+    let result = await prisma.post_category.create({
       data: {
         postId: 1,
-        parentId: null,
-        title: "This is test comment",
-        content: "This is test comment",
+        categoryId: 1,
       },
     });
 
@@ -44,15 +42,13 @@ export async function PUT(req, res) {
   try {
     const prisma = new PrismaClient();
     //const reqBody = await req.json();
-    let result = await prisma.post_comments.update({
+    let result = await prisma.post_category.update({
       where: {
         id: 1,
       },
       data: {
         postId: 1,
-        parentId: null,
-        title: "This is test comment update",
-        content: "This is test comment update",
+        categoryId: 2,
       },
     });
     return NextResponse.json({ status: "success", data: result });
@@ -68,7 +64,7 @@ export async function DELETE(req, res) {
   try {
     const prisma = new PrismaClient();
     //const reqBody = await req.json();
-    let result = await prisma.post_comments.delete({
+    let result = await prisma.post_category.delete({
       where: {
         id: 1,
       },

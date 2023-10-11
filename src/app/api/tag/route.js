@@ -7,7 +7,7 @@ export async function GET(req, res) {
   };
   try {
     const prisma = new PrismaClient();
-    let list = await prisma.post_comments.findMany();
+    let list = await prisma.tags.findMany();
     return NextResponse.json({ status: "success", data: list });
   } catch (e) {
     return NextResponse.json({ status: "fail", data: e.toString() });
@@ -22,12 +22,12 @@ export async function POST(req, res) {
   try {
     //const reqBody = await req.json();
     const prisma = new PrismaClient();
-    let result = await prisma.post_comments.create({
+    let result = await prisma.tags.create({
       data: {
-        postId: 1,
-        parentId: null,
-        title: "This is test comment",
-        content: "This is test comment",
+        title: "Phone",
+        metaTitle: "This is metaTitle",
+        slug: "This is metaTitle",
+        content: "This is content",
       },
     });
 
@@ -44,15 +44,15 @@ export async function PUT(req, res) {
   try {
     const prisma = new PrismaClient();
     //const reqBody = await req.json();
-    let result = await prisma.post_comments.update({
+    let result = await prisma.tags.update({
       where: {
         id: 1,
       },
       data: {
-        postId: 1,
-        parentId: null,
-        title: "This is test comment update",
-        content: "This is test comment update",
+        title: "Phone",
+        metaTitle: "This is metaTitle update",
+        slug: "phone",
+        content: "This is content",
       },
     });
     return NextResponse.json({ status: "success", data: result });
@@ -68,7 +68,7 @@ export async function DELETE(req, res) {
   try {
     const prisma = new PrismaClient();
     //const reqBody = await req.json();
-    let result = await prisma.post_comments.delete({
+    let result = await prisma.tags.delete({
       where: {
         id: 1,
       },
