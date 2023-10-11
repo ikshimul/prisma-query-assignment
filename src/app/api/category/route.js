@@ -69,9 +69,12 @@ export async function PUT(req, res) {
   };
   try {
     const prisma = new PrismaClient();
-    const reqBody = await req.json();
+    //const reqBody = await req.json();
     let result = await prisma.categories.update({
-      where: reqBody,
+      //where: reqBody,
+      where: {
+        id: 3,
+      },
       data: {
         title: "MacBook Pro M2 Max",
         parentId: 1,

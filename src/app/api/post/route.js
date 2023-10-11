@@ -46,9 +46,12 @@ export async function PUT(req, res) {
   };
   try {
     const prisma = new PrismaClient();
-    const reqBody = await req.json();
+    //const reqBody = await req.json();
     let result = await prisma.posts.update({
-      where: reqBody,
+      // where: reqBody,
+      where: {
+        id: 1,
+      },
       data: {
         autherId: 1,
         parentId: null,
@@ -73,7 +76,10 @@ export async function DELETE(req, res) {
     const prisma = new PrismaClient();
     const reqBody = await req.json();
     let result = await prisma.posts.delete({
-      where: reqBody,
+      where: {
+        id: 2,
+      },
+      // where: reqBody,
     });
     return NextResponse.json({ status: "success", data: result });
   } catch (e) {
